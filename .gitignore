@@ -1,0 +1,110 @@
+# macOS filesystem metadata
+.DS_Store
+._*
+
+# Python bytecode, environments and tooling caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build, packaging and local working output
+build/
+dist/
+output/
+.build/
+.swiftpm/
+DerivedData/
+**/xcuserdata/
+*.xcuserstate
+*.dSYM/
+*.xcarchive/
+*.xcresult/
+*.app/
+*.dmg
+
+# Test reports, coverage and logs
+.playwright-cli/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.profraw
+*.profdata
+*.log
+
+# Local configuration and credentials; keep shareable templates
+.codex/
+.idea/
+.ssh/
+.aws/
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+settings.json
+settings.json.*
+catalog.json
+catalog.json.*
+r2-mappings.json
+r2-mappings.json.*
+!settings.json.example
+!catalog.json.example
+!r2-mappings.json.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+
+# Local repository backups and exported archives
+*.bundle
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+AstroLibrary-history-backup-*/
+
+# FIT preview cache and interrupted import files
+AstroLibrary-FIT-Cache/
+fits-v1.sqlite3
+fits-v1.sqlite3-wal
+fits-v1.sqlite3-shm
+fits-v1.sqlite3-journal
+.astrolibrary-import-*.tmp
+.astrolibrary-write-*
+
+# Local astronomy data, links and Siril intermediates (case insensitive)
+*.[fF][iI][tT]
+*.[fF][iI][tT][sS]
+*.[fF][tT][sS]
+*.[fF][iI][tT].[gG][zZ]
+*.[fF][iI][tT][sS].[gG][zZ]
+*.[fF][iI][tT][sS].[fF][zZ]
+*.[sS][eE][qQ]
+*.[lL][sS][tT]
+siril_*
+*_conversion.txt
+
+# Photographs belong outside Git; only reviewed documentation and app assets are included.
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[pP][nN][gG]
+*.[tT][iI][fF]
+*.[tT][iI][fF][fF]
+*.[hH][eE][iI][cC]
+*.[wW][eE][bB][pP]
+*.[aA][vV][iI][fF]
+*.[gG][iI][fF]
+!/packaging/AppIcon.png
+!/macapp/Resources/Assets.xcassets/**/*.png
+!/docs/screenshots/*.jpg
+!/docs/screenshots/*.png
+
+# Keep source, tests, Package.resolved, icons and documentation images tracked.

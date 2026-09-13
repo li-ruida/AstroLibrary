@@ -1,0 +1,57 @@
+{
+  "stats": {
+    "total": 3,
+    "photos": 1,
+    "raw": 1,
+    "subPhotos": 0,
+    "subRaw": 1,
+    "bytes": 2905,
+    "editedPhotos": 1,
+    "editedBytes": 11
+  },
+  "items": [
+    {
+      "id": "M 31 - 仙女座/image_20260830-220000.fit",
+      "category": "M 31",
+      "kind": "raw",
+      "extension": "fit",
+      "size": 2896,
+      "isSub": false,
+      "capturedAt": "2026-08-30T22:00:00+08:00",
+      "captureDate": "2026-08-30",
+      "device": "Seestar S50",
+      "filter": "LP",
+      "exposure": ""
+    },
+    {
+      "id": "M 31 - 仙女座/image_20260830-220000.jpg",
+      "category": "M 31",
+      "kind": "photo",
+      "extension": "jpg",
+      "size": 9,
+      "isSub": false,
+      "capturedAt": "2026-08-30T22:00:00+08:00",
+      "captureDate": "2026-08-30",
+      "device": "Seestar S50",
+      "filter": "LP",
+      "exposure": ""
+    }
+  ],
+  "preview": {
+    "width": 2,
+    "height": 2,
+    "pixelsHex": "1ed61314"
+  },
+  "brightPreview": {
+    "width": 2,
+    "height": 2,
+    "pixelsHex": "36e92426"
+  },
+  "legacySampleBase64": "AAAArVsyLCAyLCAxLCB7IlNJTVBMRSI6ICJUIiwgIkJJVFBJWCI6ICItMzIiLCAiTkFYSVMiOiAiMiIsICJOQVhJUzEiOiAiMiIsICJOQVhJUzIiOiAiMiIsICJEQVRFLU9CUyI6ICIyMDI2LTA4LTMwVDE0OjAwOjAwIiwgIkNSRUFUT1IiOiAiWldPIFNlZXN0YXIgUzUwIiwgIkZJTFRFUiI6ICJMUCJ9LCAtMzJdeAFjYGB4ELhjnj0DGDwA0Q4Pq6aAaAW2xqn2AH6TB88=",
+  "legacyPassword": {
+    "algorithm": "pbkdf2_sha256",
+    "iterations": 600000,
+    "salt": "01d91c5db4af7c5aa3d0ecccdf2cb948",
+    "hash": "e8c8a36675186231ec6ca920c0b11027fbff250432959b06266c7a3386f7d3bd"
+  }
+}

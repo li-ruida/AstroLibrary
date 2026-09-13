@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroLibrary</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111312'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='38' fill='%23d5f580'%3E✦%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div id="mobile-nav-backdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
+    <div class="app-shell">
+      <aside id="sidebar" class="sidebar" aria-label="照片库导航">
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13"/><ellipse cx="20" cy="20" rx="21" ry="7" transform="rotate(-35 20 20)"/><circle class="orbit-dot" cx="30" cy="10" r="3"/></svg></span><div><strong>AstroLibrary</strong></div></div>
+        <div class="side-section-label">照片库</div>
+        <button class="nav-item is-active" data-target="all"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 15 3-3 2.5 2.5L16 11l3 4"/><circle cx="8" cy="8" r="1"/></svg><span>全部照片</span><b id="all-count">0</b></button>
+        <button class="nav-item" data-target="recent"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>最近拍摄</span><b id="recent-count">0</b></button>
+        <button class="workflow-nav nav-item" data-workspace="favorites"><span class="nav-symbol">☆</span><span>收藏</span><b id="favorites-count">0</b></button>
+        <div class="side-section-label folder-heading">工作流程</div>
+        <button class="workflow-nav nav-item" data-workspace="todo"><span class="nav-symbol">○</span><span>待处理</span><b id="todo-count">0</b></button>
+        <button class="workflow-nav nav-item" data-workspace="processing"><span class="nav-symbol">◐</span><span>处理中</span><b id="processing-count">0</b></button>
+        <button class="workflow-nav nav-item" data-workspace="done"><span class="nav-symbol">✓</span><span>已完成</span><b id="done-count">0</b></button>
+        <div class="side-section-label folder-heading">拍摄目标</div>
+        <div id="target-list" class="target-list"></div>
+        <button id="sidebar-settings" class="sidebar-settings button secondary" type="button">本地目录与设置</button><div class="sidebar-footer"><span class="status-dot"></span><span>仅本机访问</span><span id="footer-port" class="footer-port">127.0.0.1:8765</span></div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header"><div class="page-heading"><button id="mobile-menu" class="icon-button mobile-menu" type="button" aria-label="打开照片库导航" aria-expanded="false">☰</button><div><h1>照片库<span class="heading-dot">.</span></h1><p>每一次曝光，都值得珍藏。</p></div></div><div class="head-actions"><button id="refresh" class="button secondary" aria-label="立即重新扫描">↻ 重新扫描</button><button id="cleanup-jpg" class="button secondary" type="button" title="清理图库目录及子目录内的 JPG/JPEG">清理 JPG</button><button id="export-jpg" class="button primary" title="按设置范围导出图库照片，不受当前筛选影响">导出 JPG</button><button id="settings" class="icon-button" aria-label="本地设置" title="本地设置">⚙</button></div></header>
+        <div id="library-summary" class="library-summary">正在读取本地作品库…</div>
+        <div class="topbar"><label class="search"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg><input id="search" type="search" aria-label="搜索图库" placeholder="搜索目标、文件名或标签…" autocomplete="off" /><kbd>⌘ K</kbd></label><button id="toggle-filters" class="button secondary" type="button" aria-expanded="false">筛选</button></div>
+        <section id="access-banner" class="access-banner" hidden>
+          <div><strong id="access-title">选择要展示的图库目录</strong><p id="access-message"></p></div>
+          <div class="access-actions"><button id="pick-source-banner" class="button primary">选择目录</button><button id="retry-source" class="button secondary">重新扫描</button></div>
+        </section>
+
+        <section class="content-head"><div class="content-title"><h2 id="section-title">全部照片</h2><span id="result-count" aria-live="polite">0 个目标</span></div><div class="mode-tabs" role="group" aria-label="照片版本"><button data-mode="auto" class="is-active" aria-pressed="true">FIT 优先</button><button data-mode="source" aria-pressed="false">原始图像</button><button data-mode="edited" aria-pressed="false">精选成片</button></div></section>
+        <section class="filters-bar" aria-label="照片筛选"><label><span>展示</span><select id="gallery-mode"><option value="auto">FIT 优先</option><option value="source">原始图像（FIT / JPG）</option><option value="edited">精选成片</option></select></label><label class="merge-targets-filter"><span>目标显示</span><span class="toggle-control"><input id="merge-targets" type="checkbox" checked /><em>合并重复目标</em></span></label><label><span>目标</span><select id="target-filter"><option value="all">全部目标</option></select></label><label><span>设备</span><select id="device-filter"><option value="all">全部设备</option></select></label><label><span>标签</span><select id="tag-filter"><option value="all">全部标签</option></select></label><label><span>评分</span><select id="rating-filter"><option value="all">全部评分</option><option value="0">未评分</option><option value="1">1 星及以上</option><option value="2">2 星及以上</option><option value="3">3 星及以上</option><option value="4">4 星及以上</option><option value="5">5 星</option></select></label><label><span>从日期</span><input id="date-from" type="date" /></label><label><span>到日期</span><input id="date-to" type="date" /></label><button id="clear-filters" class="button filter-clear">清除筛选</button></section>
+        <div class="toolbar"><span id="library-status" class="library-status"><span class="status-dot"></span><span>准备扫描</span></span><label class="sort-control"><span>排序</span><select id="sort-filter" aria-label="照片排序"><option value="capture_desc">拍摄时间最新</option><option value="capture_asc">拍摄时间最早</option><option value="rating_desc">评分从高到低</option><option value="rating_asc">评分从低到高</option><option value="target">按目标</option><option value="device">按设备</option></select></label><span class="view-mode" aria-label="视图模式"><button id="grid-view" class="view-button is-active" type="button" aria-label="网格视图" aria-pressed="true"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></button><button id="list-view" class="view-button" type="button" aria-label="列表视图" aria-pressed="false"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="5" cy="6" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="5" cy="18" r="1"/></svg></button></span></div>
+        <div id="active-filters" class="active-filters" hidden></div><section id="gallery" class="gallery"><div class="loading-state"><span class="loader"></span><p>扫描本地作品库</p></div></section>
+      </main>
+    </div>
+
+    <section id="auth-gate" class="auth-gate" hidden aria-hidden="true">
+      <form id="auth-form" class="auth-card">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13"/><ellipse cx="20" cy="20" rx="21" ry="7" transform="rotate(-35 20 20)"/><circle class="orbit-dot" cx="30" cy="10" r="3"/></svg></span><span class="eyebrow">LOCAL ACCESS</span>
+        <h1>登录 AstroLibrary</h1>
+        <p>此图库已开启账号保护。仅允许本机浏览器通过验证后访问照片。</p>
+        <label><span>账号</span><input id="auth-login-username" type="text" autocomplete="username" required /></label>
+        <label><span>密码</span><input id="auth-login-password" type="password" autocomplete="current-password" required /></label>
+        <div id="auth-error" class="auth-error" role="alert"></div>
+        <button class="button primary" type="submit">登录</button>
+      </form>
+    </section>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="照片预览" aria-hidden="true"><button id="close-lightbox" class="lightbox-close" aria-label="关闭预览">×</button><div class="lightbox-tools"><span id="lightbox-position"></span><button id="lightbox-favorite" class="button secondary">☆ 收藏</button><button id="lightbox-zoom" class="button secondary" aria-pressed="false">放大</button><button id="lightbox-details" class="button secondary">详情</button></div><button id="lightbox-prev" class="lightbox-arrow prev" aria-label="上一张">‹</button><button id="lightbox-next" class="lightbox-arrow next" aria-label="下一张">›</button><div class="lightbox-canvas"><img id="lightbox-image" alt="" /></div><section id="lightbox-rating" class="lightbox-rating" aria-label="当前照片评分"></section><section id="fits-controls" class="fits-controls" aria-label="FIT 显示调节" hidden>
+      <label>显示<select id="fits-mode"><option value="auto">智能预览</option><option value="linear">原样显示</option><option value="stretch">自动拉伸</option></select></label>
+      <label for="fits-black">黑场 <output id="fits-black-value" for="fits-black">0.0</output><input id="fits-black" aria-label="黑场" type="range" min="-3" max="3" step="0.1" value="0" /></label>
+      <label for="fits-brightness">亮度 <output id="fits-brightness-value" for="fits-brightness">0.0</output><input id="fits-brightness" aria-label="亮度" type="range" min="-2" max="2" step="0.1" value="0" /></label>
+      <label class="fits-neutralize"><input id="fits-neutralize" type="checkbox" />背景中和</label>
+      <button id="fits-reset" class="button secondary" type="button">重置</button>
+      <small>仅调整当前图像预览 · 智能模式参考处理记录，必要时可手动切换</small>
+    </section><div class="lightbox-caption"><strong id="lightbox-title"></strong><span id="lightbox-meta"></span></div></div>
+    <div id="details-backdrop" class="details-backdrop" aria-hidden="true"></div>
+    <aside id="details-panel" class="details-panel" role="dialog" aria-modal="true" aria-label="照片详情" aria-hidden="true" inert>
+      <header class="details-header"><div><span class="section-label">拍摄详情</span><h2 id="details-title">照片详情</h2></div><button id="close-details" class="lightbox-close" aria-label="关闭照片详情">×</button></header>
+      <div id="details-content" class="details-content"></div>
+    </aside>
+    <div id="settings-backdrop" class="details-backdrop" aria-hidden="true"></div>
+    <aside id="settings-panel" class="details-panel settings-panel" role="dialog" aria-modal="true" aria-label="应用设置" aria-hidden="true" inert>
+      <header class="details-header"><div><span class="section-label">AstroLibrary</span><h2>应用设置</h2></div><button id="close-settings" class="lightbox-close" aria-label="关闭应用设置">×</button></header>
+      <div class="settings-content">
+        <section class="settings-section"><div class="settings-label">网页端口</div><p class="settings-help">默认使用 8765。修改后需要退出并重新启动 AstroLibrary 才会切换到新端口；服务始终只绑定 127.0.0.1。</p><div class="path-control"><input id="server-port" type="number" min="1024" max="65535" step="1" /><span class="settings-unit">端口</span></div></section>
+        <section class="settings-section"><div class="settings-label">网页账号保护</div><p class="settings-help">账号保护不在网页端修改，避免网页会话直接改变安全边界。请在本机配置文件或配置工具中开启、关闭和修改密码；修改后重启 AstroLibrary。</p><div id="auth-settings-status" class="settings-status"></div><button id="logout" class="button secondary auth-logout" type="button">退出当前登录</button></section>
+        <section class="settings-section"><div class="settings-label">图库目录</div><p class="settings-help">选择任意照片文件夹，包含子目录，不要求 MyWorks。这个目录决定图库展示、缓存重建和 JPG 清理的范围。</p><div class="path-control"><input id="source-path" type="text" /><button id="pick-source" class="button secondary">选择</button></div></section>
+        <section class="settings-section"><div class="settings-label">Seestar 导入（可选）</div><p class="settings-help">将 Seestar App 已下载的照片复制到当前图库。包含 FIT 和 SUB，保留子目录，同名文件跳过，原文件保留。图库也可以独立使用。</p><div class="path-control"><input id="seestar-source" type="text" placeholder="Seestar 已下载照片目录" /><button id="detect-seestar" class="button secondary">自动查找</button></div><div id="source-candidates" class="source-candidates"></div><button id="import-seestar" class="button secondary">导入到图库</button><div id="seestar-import-status" class="settings-status"></div></section>
+        <section class="settings-section"><div class="settings-label">导出副本目录</div><p class="settings-help">仅导出副本时使用，不决定图库展示内容；实际导出时需与图库目录分开。</p><div class="path-control"><input id="destination-path" type="text" /><button id="pick-destination" class="button secondary">选择</button></div></section>
+        <section class="settings-section"><div class="settings-label">导出范围</div><p class="settings-help">默认导出全部文件；选择“仅单张成片”后，导出 JPG 和导出全部都会跳过所有 `_sub` 子目录中的逐帧文件。</p><div class="path-control"><select id="export-scope"><option value="all">全部文件（含 SUB）</option><option value="single">仅单张成片（不含 SUB）</option></select></div></section>
+        <section class="settings-section"><div class="settings-label">精选成片目录</div><p class="settings-help">为处理并挑选好的 JPG/PNG/TIFF 指定独立目录。原始图库离线时仍可浏览；建议按目标建立子目录，后期软件可直接导出到这里。</p><div class="path-control"><input id="edited-path" type="text" placeholder="可选：/Users/…/Astro精选" /><button id="pick-edited" class="button secondary">选择</button></div><div id="edited-status" class="settings-status"></div></section>
+        <section class="settings-section r2-settings"><div class="settings-label">Cloudflare R2 预览同步</div><p class="settings-help">自动生成最长边 1600 px、已清理元数据的 JPEG 预览并上传；不会上传 FIT、SUB 逐帧或原始照片。密钥只保存在本机私有设置文件中，网页不会回显。</p><label class="toggle-row"><input id="r2-enabled" type="checkbox" /><span>启用 R2 存储</span></label><label class="toggle-row r2-auto-row"><input id="r2-auto-upload" type="checkbox" /><span>每次扫描后自动增量上传</span></label><div class="r2-fields"><label><span>Account ID</span><input id="r2-account-id" type="text" maxlength="32" autocomplete="off" spellcheck="false" placeholder="32 位 Account ID" /></label><label><span>Bucket</span><input id="r2-bucket" type="text" maxlength="63" autocomplete="off" spellcheck="false" placeholder="例如 astrolibrary" /></label><label><span>Access Key ID</span><input id="r2-access-key" type="text" maxlength="128" autocomplete="off" spellcheck="false" /></label><label><span>Secret Access Key</span><input id="r2-secret-key" type="password" maxlength="512" autocomplete="new-password" spellcheck="false" placeholder="留空则保留已保存密钥" /></label><label class="r2-wide"><span>公开访问地址（可选）</span><input id="r2-public-url" type="url" autocomplete="off" spellcheck="false" placeholder="https://images.example.com" /></label><label class="r2-wide"><span>对象前缀</span><input id="r2-key-prefix" type="text" maxlength="512" autocomplete="off" spellcheck="false" placeholder="astrolibrary/previews" /></label></div><div id="r2-status" class="settings-status r2-status">尚未配置</div><div class="r2-actions"><button id="test-r2" class="button secondary" type="button">测试连接</button><button id="sync-r2" class="button secondary" type="button">立即同步</button></div></section>
+        <section class="settings-section"><div class="settings-label">自定义标签 / 分组</div><p class="settings-help">在目标详情中给目标添加标签，例如“最爱”“窄带”“待发布”；标签会自动成为可筛选的分组。</p><div id="tag-library" class="tag-library"></div></section>
+        <section class="settings-section"><div class="settings-label">导出源文件</div><p class="settings-help">导出按上方设置的范围复制整个图库目录，不受图库筛选影响，精选成片保留在单独目录中。</p><button id="export-all" class="button secondary">导出图库文件</button></section><button id="save-settings" class="button primary settings-save">保存设置</button>
+      </div>
+    </aside>
+    <dialog id="cleanup-dialog" class="cleanup-dialog" aria-labelledby="cleanup-title">
+      <h2 id="cleanup-title">清理目录中的 JPG</h2>
+      <p>将以下图库目录及其所有子目录中的 JPG / JPEG 移入废纸篓（含 SUB，不受当前筛选影响）。保留 FIT、PNG、TIFF 等其他文件。</p>
+      <code id="cleanup-source"></code>
+      <p id="cleanup-summary" role="status" aria-live="polite"></p>
+      <p class="settings-help">文件可从 macOS 废纸篓找回。清理后图库将自动重新扫描。</p>
+      <div class="cleanup-actions"><button id="cancel-cleanup" class="button secondary" type="button">取消</button><button id="confirm-cleanup" class="button danger" type="button">移入废纸篓</button></div>
+    </dialog>
+    <dialog id="target-cleanup-dialog" class="cleanup-dialog" aria-labelledby="target-cleanup-title">
+      <h2 id="target-cleanup-title">删除整个目标</h2>
+      <p>将当前图库中该目标的所有拍摄图和 SUB 逐帧移入废纸篓，包含 FIT/FITS、JPG、PNG、TIFF，不受日期、评分或照片版本筛选影响。</p>
+      <code id="target-cleanup-source"></code>
+      <p id="target-cleanup-summary" role="status" aria-live="polite"></p>
+      <p class="settings-help">仅操作上述图库路径中的文件；图库外的精选成片、Seestar 下载源和云端副本不在本次范围内。文件可从废纸篓恢复；中途停止会保留尚未处理的文件。</p>
+      <div class="cleanup-actions"><button id="cancel-target-cleanup" class="button secondary" type="button">取消</button><button id="confirm-target-cleanup" class="button danger" type="button" disabled>移入废纸篓</button></div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

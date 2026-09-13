@@ -1,0 +1,265 @@
+{
+  "date": "2026-09-10",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "binarySHA256": {
+    "before": "834441bb590b9f325fb05ab949e445e2e04f01d66b79710fa2aba6350932debd",
+    "after": "02024d7e0c8690af8cb027a7b039a9675a696c738d8dd4c0944b18d347770819"
+  },
+  "library": {
+    "before": {
+      "fixture": {
+        "masters": 60,
+        "subFrames": 6000,
+        "targets": 20
+      },
+      "method": "Warm OS pages; empty App cache for first scan; medians of 9 warm API requests; 8 concurrent warm library requests.",
+      "coldLibraryMs": 7237.16,
+      "refreshLibraryMs": 379.88,
+      "warmLibraryMs": 13.68,
+      "targetSubMs": 14.24,
+      "cacheStatusMs": 0.38,
+      "concurrentLibraryMedianMs": 54.71,
+      "residentKiB": 88464,
+      "libraryPayloadBytes": 40517
+    },
+    "after": {
+      "fixture": {
+        "masters": 60,
+        "subFrames": 6000,
+        "targets": 20
+      },
+      "method": "Warm OS pages; empty App cache for first scan; medians of 9 warm API requests; 8 concurrent warm library requests.",
+      "coldLibraryMs": 1163.23,
+      "refreshLibraryMs": 370.18,
+      "warmLibraryMs": 0.54,
+      "targetSubMs": 1.23,
+      "cacheStatusMs": 0.21,
+      "concurrentLibraryMedianMs": 1.65,
+      "residentKiB": 61312,
+      "libraryPayloadBytes": 40517
+    }
+  },
+  "preview": {
+    "runs": {
+      "before": [
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.75,
+          "nativeDecodeMs": 4.61,
+          "nativeFirstHTTPPreviewMs": 107.65,
+          "nativeCachedHTTPPreviewMs": 0.26,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.77,
+          "nativeDecodeMs": 4.56,
+          "nativeFirstHTTPPreviewMs": 107.35,
+          "nativeCachedHTTPPreviewMs": 0.24,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.6,
+          "nativeDecodeMs": 4.47,
+          "nativeFirstHTTPPreviewMs": 107.53,
+          "nativeCachedHTTPPreviewMs": 0.25,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.81,
+          "nativeDecodeMs": 4.65,
+          "nativeFirstHTTPPreviewMs": 108.01,
+          "nativeCachedHTTPPreviewMs": 0.29,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 17.02,
+          "nativeDecodeMs": 4.39,
+          "nativeFirstHTTPPreviewMs": 106.43,
+          "nativeCachedHTTPPreviewMs": 0.27,
+          "cliHTTPPixelsIdentical": true
+        }
+      ],
+      "after": [
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.72,
+          "nativeDecodeMs": 4.6,
+          "nativeFirstHTTPPreviewMs": 107.38,
+          "nativeCachedHTTPPreviewMs": 0.3,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.83,
+          "nativeDecodeMs": 4.68,
+          "nativeFirstHTTPPreviewMs": 107.3,
+          "nativeCachedHTTPPreviewMs": 0.26,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.51,
+          "nativeDecodeMs": 4.62,
+          "nativeFirstHTTPPreviewMs": 106.95,
+          "nativeCachedHTTPPreviewMs": 0.31,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 16.7,
+          "nativeDecodeMs": 4.8,
+          "nativeFirstHTTPPreviewMs": 106.26,
+          "nativeCachedHTTPPreviewMs": 0.28,
+          "cliHTTPPixelsIdentical": true
+        },
+        {
+          "fixture": {
+            "width": 1920,
+            "height": 1080,
+            "channels": 3,
+            "bitpix": -32,
+            "sourceBytes": 24886080,
+            "previewWidth": 960,
+            "previewHeight": 540
+          },
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "method": "3 runs, median, warmed OS file cache. C++ render includes process startup and PNG file write; HTTP cold means empty AstroLibrary cache, not cold physical disk.",
+          "nativeRenderWallMs": 17.16,
+          "nativeDecodeMs": 4.8,
+          "nativeFirstHTTPPreviewMs": 107.43,
+          "nativeCachedHTTPPreviewMs": 0.27,
+          "cliHTTPPixelsIdentical": true
+        }
+      ]
+    },
+    "medians": {
+      "before": {
+        "nativeRenderWallMs": 16.77,
+        "nativeDecodeMs": 4.56,
+        "nativeFirstHTTPPreviewMs": 107.53,
+        "nativeCachedHTTPPreviewMs": 0.26
+      },
+      "after": {
+        "nativeRenderWallMs": 16.72,
+        "nativeDecodeMs": 4.68,
+        "nativeFirstHTTPPreviewMs": 107.3,
+        "nativeCachedHTTPPreviewMs": 0.28
+      }
+    }
+  },
+  "realLibrary": {
+    "files": 9219,
+    "subFiles": 9108,
+    "before": {
+      "refreshMs": 632.48,
+      "warmMs": [
+        22.84,
+        22.59
+      ]
+    },
+    "after": {
+      "refreshMs": 563.22,
+      "warmMs": [
+        1.35,
+        1.3,
+        1.11,
+        1.0
+      ]
+    },
+    "note": "Read-only API measurements on the existing gallery and persistent cache. Physical disk cache was not flushed; these are not cold-drive benchmarks."
+  }
+}
